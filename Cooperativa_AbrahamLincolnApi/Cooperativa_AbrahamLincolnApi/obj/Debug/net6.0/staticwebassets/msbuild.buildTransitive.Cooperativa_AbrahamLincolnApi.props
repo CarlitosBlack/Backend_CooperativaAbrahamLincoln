@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Cooperativa_AbrahamLincolnApi.props" />
+</Project>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Cooperativa_AbrahamLincolnApi.props" />
+</Project>
