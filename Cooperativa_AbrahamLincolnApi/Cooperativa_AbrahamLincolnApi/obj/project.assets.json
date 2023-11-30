@@ -11486,11 +11486,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AbrahamLincoln\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi.csproj",
+      "projectUniqueName": "D:\\AbrahamLincoln\\backend2\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi.csproj",
       "projectName": "Cooperativa_AbrahamLincolnApi",
-      "projectPath": "D:\\AbrahamLincoln\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi.csproj",
+      "projectPath": "D:\\AbrahamLincoln\\backend2\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi.csproj",
       "packagesPath": "C:\\Users\\Carlitos\\.nuget\\packages\\",
-      "outputPath": "D:\\AbrahamLincoln\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\obj\\",
+      "outputPath": "D:\\AbrahamLincoln\\backend2\\Cooperativa_AbrahamLincolnApi\\Cooperativa_AbrahamLincolnApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

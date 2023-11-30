@@ -14,7 +14,7 @@ namespace Cooperativa_AbrahamLincolnApi.Models
         public string Categoria { get; set; } = null!;
         public DateTime Fecha { get; set; }
         public string NombreProceso { get; set; } = null!;
-        public byte[] Documento { get; set; } = null!;
+        //public byte[]? Documento { get; set; } = null!;
         public string? UsuarioInsercion { get; set; }
         public DateTime? FechaInsercion { get; set; }
         public int GerenciaGeneralId { get; set; }

@@ -1,4 +1,5 @@
-﻿using Cooperativa_AbrahamLincolnApi.Models;
+﻿using Cooperativa_AbrahamLincolnApi.Entidades;
+using Cooperativa_AbrahamLincolnApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,183 +12,217 @@ namespace Cooperativa_AbrahamLincolnApi.Controllers
         Cooperativa_AbrahamLincolnContext db = new Cooperativa_AbrahamLincolnContext();
 
 
-        // ---
+        // --------------------------------------------------------------
         // Categoria Raiz Organización
         [HttpGet("estructura_gobierno")]
-        public ActionResult<IEnumerable<EstructuraGobierno>> ListarEstructuraGobierno()
+        public ActionResult<IEnumerable<IEstructura_Gobierno>> ListarEstructuraGobierno()
         {
-            var query = from x in db.EstructuraGobiernos select x;
+            //var query = from x in db.EstructuraGobiernos select x;
+            var query = from x in db.EstructuraGobiernos select new IEstructura_Gobierno
+            { Id = x.Id, Nombre_doc = x.NombreDocumento, Documentos = x.Documento};
             return query.ToList();
         }
 
         [HttpGet("directivos")]
-        public ActionResult<IEnumerable<Directivo>> ListarDirectivos()
+        public ActionResult<IEnumerable<IDirectivos>> ListarDirectivos()
         {
-            var query = from x in db.Directivos select x;
+            //var query = from x in db.Directivos select x;
+            var query = from x in db.Directivos select new IDirectivos
+            { Id = x.Id, Tipo_Equipo = x.TipoEquipo, _Nombre = x.Nombre, _Cargo = x.Cargo};
             return query.ToList();
         }
 
-        // ---
+        // --------------------------------------------------------------
         // Categoria Raiz Organos de Gestion
         [HttpGet("cooperativa")]
-        public ActionResult<IEnumerable<Cooperativa>> ListarCooperativa()
+        public ActionResult<IEnumerable<ICooperativa>> ListarCooperativa()
         {
-            var query = from x in db.Cooperativas select x;
+            //var query = from x in db.Cooperativas select x;
+            var query = from x in db.Cooperativas select new ICooperativa
+            { Id = x.Id, Nombre_Cargo = x.NombreCargo, _Nombre = x.Nombre, _Correo = x.Correo, _Anexo = x.Anexo };
             return query.ToList();
         }
 
         [HttpGet("colegio")]
-        public ActionResult<IEnumerable<Colegio>> ListarColegio()
+        public ActionResult<IEnumerable<IColegio>> ListarColegio()
         {
-            var query = from x in db.Colegios select x;
+            //var query = from x in db.Colegios select x;
+            var query = from x in db.Cooperativas
+                        select new IColegio
+                        { Id = x.Id, Nombre_Cargo = x.NombreCargo, _Nombre = x.Nombre, _Correo = x.Correo, _Anexo = x.Anexo };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Asamblea General
         [HttpGet("asambleas")]
-        public ActionResult<IEnumerable<Asamblea>> ListarAsamblea()
+        public ActionResult<IEnumerable<IAsambleas>> ListarAsamblea()
         {
-            var query = from x in db.Asambleas select x;
+            //var query = from x in db.Asambleas select x;
+            var query = from x in db.Asambleas select new IAsambleas
+            { Id = x.Id, _Nombre = x.Nombre , _Fecha = x.Fecha.ToShortDateString(), _Convocatoria = x.Convocatoria, _Actas = x.Actas, _Anexos = x.Anexos, _Acuerdos = x.Acuerdos };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Consejo de Administracion
         [HttpGet("actas_sesiones_administracion")]
-        public ActionResult<IEnumerable<ActaSesionesAdministracion>> ListarActasSecionesAdministracion()
+        public ActionResult<IEnumerable<IActas_Sesiones_Administracion>> ListarActasSecionesAdministracion()
         {
-            var query = from x in db.ActaSesionesAdministracions select x;
+            var query = from x in db.ActaSesionesAdministracions select new IActas_Sesiones_Administracion
+                        { Id = x.Id, _AnioActas=x.AnioActas, _Documento=x.Documento, _Nombre=x.Nombre  } ;
             return query.ToList();
         }
 
         [HttpGet("informacion_socio_administracion")]
-        public ActionResult<IEnumerable<InfoSocioAdministracion>> ListarInfoSocioAdministracion()
+        public ActionResult<IEnumerable<IInfo_Socio_Administracion>> ListarInfoSocioAdministracion()
         {
-            var query = from x in db.InfoSocioAdministracions select x;
+            //var query = from x in db.InfoSocioAdministracions select x;
+            var query = from x in db.InfoSocioAdministracions
+                        select new IInfo_Socio_Administracion
+                        { Id = x.Id, Categoria = x.Categoria, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento, _Nombre = x.Nombre };
             return query.ToList();
         }
 
         [HttpGet("reportes_financieros")]
-        public ActionResult<IEnumerable<ReportesFinanciero>> ListarReportesFinanciero()
+        public ActionResult<IEnumerable<IReportes_Financieros>> ListarReportesFinanciero()
         {
-            var query = from x in db.ReportesFinancieros select x;
+            //var query = from x in db.ReportesFinancieros select x;
+            var query = from x in db.ReportesFinancieros
+                        select new IReportes_Financieros
+                        { Id = x.Id, Categoria = x.Categoria, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Document, _Nombre = x.Name };
             return query.ToList();
         }
 
         //subcategoria de Consejo de Administracion : Proyectos
         [HttpGet("infraestructura_proyectos")]
-        public ActionResult<IEnumerable<InfraestructuraProyecto>> ListarInfraestructuraProyecto()
+        public ActionResult<IEnumerable<IInfraestructura_Proyecto>> ListarInfraestructuraProyecto()
         {
-            var query = from x in db.InfraestructuraProyectos select x;
+            var query = from x in db.InfraestructuraProyectos select new IInfraestructura_Proyecto
+            { Id=x.Id, _Nombre=x.Nombre, MontoAutorizado=x.MontoAutorizado, MontoEjecutado=x.MontoEjecutado, Situacion=x.Situacion, Observaciones=x.Observaciones  };
             return query.ToList();
         }
 
         [HttpGet("operativos_proyectos")]
-        public ActionResult<IEnumerable<OperativosProyecto>> ListarOperativosProyecto()
+        public ActionResult<IEnumerable<IOperativos_Proyecto>> ListarOperativosProyecto()
         {
-            var query = from x in db.OperativosProyectos select x;
+            var query = from x in db.OperativosProyectos select new IOperativos_Proyecto
+            { Id = x.Id, _Nombre = x.Nombre, MontoAutorizado = x.MontoAutorizado, MontoEjecutado = x.MontoEjecutado, Situacion = x.Situacion, Observaciones = x.Observaciones  };
             return query.ToList();
         }
 
         [HttpGet("pedagogicos_proyectos")]
-        public ActionResult<IEnumerable<PedagogicosProyecto>> ListarPedagogicosProyecto()
+        public ActionResult<IEnumerable<IPedagogicos_Proyecto>> ListarPedagogicosProyecto()
         {
-            var query = from x in db.PedagogicosProyectos select x;
+            var query = from x in db.PedagogicosProyectos select new IPedagogicos_Proyecto
+            { Id = x.Id, _Nombre = x.Nombre, MontoAutorizado = x.MontoAutorizado, MontoEjecutado = x.MontoEjecutado, Situacion = x.Situacion, Observaciones = x.Observaciones  };
             return query.ToList();
         }
 
         [HttpGet("contratos_adquisiciones")]
-        public ActionResult<IEnumerable<ContratosAdquisicione>> ListarContratosAdquisiciones()
+        public ActionResult<IEnumerable<IContratos_Adquisiciones>> ListarContratosAdquisiciones()
         {
-            var query = from x in db.ContratosAdquisiciones select x;
+            var query = from x in db.ContratosAdquisiciones select new IContratos_Adquisiciones
+            { Id = x.Id, Categoria = x.Categoria, _Documento = x.Document, _Nombre = x.Nombre };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Consejo de Vigilancia
-        [HttpGet("actas_seciones_vigilancia")]
-        public ActionResult<IEnumerable<ActaSesionesVigilancium>> ListarActaSesionesVigilancium()
+        [HttpGet("actas_sesiones_vigilancia")]
+        public ActionResult<IEnumerable<IActa_Sesiones_Vigilancia>> ListarActaSesionesVigilancium()
         {
-            var query = from x in db.ActaSesionesVigilancia select x;
+            var query = from x in db.ActaSesionesVigilancia select new IActa_Sesiones_Vigilancia
+            { Id = x.Id, _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento  };
             return query.ToList();
         }
 
         [HttpGet("informacion_socio_vigilancia")]
-        public ActionResult<IEnumerable<InfoSocioVigilancium>> ListarInfoSocioVigilancium()
+        public ActionResult<IEnumerable<IInfo_Socio_Vigilancia>> ListarInfoSocioVigilancium()
         {
-            var query = from x in db.InfoSocioVigilancia select x;
+            var query = from x in db.InfoSocioVigilancia select new IInfo_Socio_Vigilancia
+            { Id = x.Id, _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento  };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Comite Electoral
         [HttpGet("procesos_electorales")]
-        public ActionResult<IEnumerable<ProcesosElectorale>> ListarProcesosElectorales()
+        public ActionResult<IEnumerable<IProcesos_Electorale>> ListarProcesosElectorales()
         {
-            var query = from x in db.ProcesosElectorales select x;
+            var query = from x in db.ProcesosElectorales select new IProcesos_Electorale
+            { Id = x.Id, _Fecha = x.Fecha.ToShortDateString(), _Nombre = x.Nombre,  _Documento = x.Document  };
             return query.ToList();
         }
 
         [HttpGet("informacion_socio_procesos_electorales")]
-        public ActionResult<IEnumerable<InfoSocioComiteElectoral>> ListarInfoSocioComiteElectoral()
+        public ActionResult<IEnumerable<IInfo_Socio_Comite_Electoral>> ListarInfoSocioComiteElectoral()
         {
-            var query = from x in db.InfoSocioComiteElectorals select x;
+            var query = from x in db.InfoSocioComiteElectorals select new IInfo_Socio_Comite_Electoral
+            { Id = x.Id, Categoria=x.Categoria, _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento  };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Comite Educacional Coorporativo
         [HttpGet("informacion_general")]
-        public ActionResult<IEnumerable<InfoGeneral>> ListarInfoGeneral()
+        public ActionResult<IEnumerable<IInfo_General>> ListarInfoGeneral()
         {
-            var query = from x in db.InfoGenerals select x;
+            var query = from x in db.InfoGenerals select new IInfo_General
+            { Id = x.Id,  _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento };
             return query.ToList();
         }
 
         [HttpGet("conversatorios")]
-        public ActionResult<IEnumerable<Conversatorio>> ListarConversatorio()
+        public ActionResult<IEnumerable<IConversatorio>> ListarConversatorio()
         {
-            var query = from x in db.Conversatorios select x;
+            var query = from x in db.Conversatorios select new IConversatorio
+            { Id = x.Id,  _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento };
             return query.ToList();
         }
 
         [HttpGet("talleres_de_induccion")]
-        public ActionResult<IEnumerable<TalleresInduccion>> ListarTalleresInduccion()
+        public ActionResult<IEnumerable<ITalleres_Induccion>> ListarTalleresInduccion()
         {
-            var query = from x in db.TalleresInduccions select x;
+            var query = from x in db.TalleresInduccions select new ITalleres_Induccion
+            { Id = x.Id, _Nombre = x.Nombre, _Fecha = x.Fecha.ToShortDateString(), _Documento = x.Documento };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Gerencia General
         [HttpGet("informacion_socio_gerencia")]
-        public ActionResult<IEnumerable<InfoSocioGerencium>> ListarInfoSocioGerencium()
+        public ActionResult<IEnumerable<IInfo_Socio_Gerencia>> ListarInfoSocioGerencium()
         {
-            var query = from x in db.InfoSocioGerencia select x;
+            var query = from x in db.InfoSocioGerencia select new IInfo_Socio_Gerencia
+            { Id = x.Id, Categoria = x.Categoria, _Fecha = x.Fecha.ToShortDateString(), _Nombre = x.Nombre,  _Documento = x.Documento  };
             return query.ToList();
         }
 
         [HttpGet("procesos")]
-        public ActionResult<IEnumerable<Proceso>> ListarProcesos()
+        public ActionResult<IEnumerable<IProceso>> ListarProcesos()
         {
-            var query = from x in db.Procesos select x;
+            var query = from x in db.Procesos join y in db.DocumentosProcesosGerencia on x.Id equals y.Id
+                        select new IProceso
+            { Id = x.Id, Categoria = x.Categoria, _Fecha = x.Fecha.ToShortDateString(), _Nombre_Proceso = x.NombreProceso, _Nombre_Documento= y.NombreDocumento, _Documento = y.Documento  };
             return query.ToList();
         }
 
         // ---
         // Categoria Raiz Comites
         [HttpGet("apoyo")]
-        public ActionResult<IEnumerable<Apoyo>> ListarApoyo()
+        public ActionResult<IEnumerable<IApoyo>> ListarApoyo()
         {
-            var query = from x in db.Apoyos select x;
+            var query = from x in db.Apoyos select new IApoyo
+            { Id = x.Id, _Nombre = x.Nombre,  _Documento = x.Documento };
             return query.ToList();
         }
 
         [HttpGet("especiales")]
-        public ActionResult<IEnumerable<Especiale>> ListarEspeciales()
+        public ActionResult<IEnumerable<IEspeciales>> ListarEspeciales()
         {
-            var query = from x in db.Especiales select x;
+            var query = from x in db.Especiales select new IEspeciales
+            { Id = x.Id, _Nombre = x.Nombre,  _Documento = x.Documento };
             return query.ToList();
         }
 
