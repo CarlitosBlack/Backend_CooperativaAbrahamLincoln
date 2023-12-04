@@ -1210,7 +1210,7 @@ namespace Cooperativa_AbrahamLincolnApi.Models
                     .IsUnicode(false)
                     .HasColumnName("categoria");
 
-                entity.Property(e => e.Documento).HasColumnName("documento");
+                //entity.Property(e => e.Documento).HasColumnName("documento");
 
                 entity.Property(e => e.Fecha)
                     .HasColumnType("date")

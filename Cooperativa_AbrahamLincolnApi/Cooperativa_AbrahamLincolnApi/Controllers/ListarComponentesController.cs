@@ -155,7 +155,7 @@ namespace Cooperativa_AbrahamLincolnApi.Controllers
             return query.ToList();
         }
 
-        [HttpGet("informacion_socio_procesos_electorales")]
+        [HttpGet("informacion_socio_comite_electoral")]
         public ActionResult<IEnumerable<IInfo_Socio_Comite_Electoral>> ListarInfoSocioComiteElectoral()
         {
             var query = from x in db.InfoSocioComiteElectorals select new IInfo_Socio_Comite_Electoral
@@ -202,7 +202,7 @@ namespace Cooperativa_AbrahamLincolnApi.Controllers
         [HttpGet("procesos")]
         public ActionResult<IEnumerable<IProceso>> ListarProcesos()
         {
-            var query = from x in db.Procesos join y in db.DocumentosProcesosGerencia on x.Id equals y.Id
+            var query = from x in db.Procesos join y in db.DocumentosProcesosGerencia on x.Id equals y.ProcesosId
                         select new IProceso
             { Id = x.Id, Categoria = x.Categoria, _Fecha = x.Fecha.ToShortDateString(), _Nombre_Proceso = x.NombreProceso, _Nombre_Documento= y.NombreDocumento, _Documento = y.Documento  };
             return query.ToList();
